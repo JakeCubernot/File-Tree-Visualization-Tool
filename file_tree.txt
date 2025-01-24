@@ -1,0 +1,14 @@
+├── Project Work/
+│   file_tree.txt
+└── file_tree_maker.py
+├── School Path/
+    ├── Coaches/
+    ├── Students/
+    │   Bob.docx
+    └── John.txt.txt
+    ├── Teachers/
+    └── Mr. Smith.txt
+├── Town Hall/
+│   ├── Faculty/
+│       ├── Mayor/
+│       └── Mayor Work Sheets.xlsx
