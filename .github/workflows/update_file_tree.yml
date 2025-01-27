@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write  
+      contents: write
 
     steps:
       - name: Checkout code
@@ -24,34 +24,29 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Find Python script
-        id: find_script
+      - name: Find and run file_tree_maker.py
         run: |
-          FILE_PATH=$(find . -type f -name "file_tree_maker.py" | head -n 1)
-          echo "Found file_tree_maker.py at $FILE_PATH"
-          echo "script_path=$FILE_PATH" >> $GITHUB_ENV
+          script_path=$(find . -type f -name "file_tree_maker.py" -print -quit)
 
-      - name: Run Python script
-        run: python ${{ env.script_path }}
+          if [ -n "$script_path" ]; then
+            echo "Found file_tree_maker.py at $script_path"
+            python "$script_path"
+          else
+            echo "file_tree_maker.py not found"
+            exit 1
+          fi
 
-      - name: Find file_tree.txt
-        id: find_file
+      - name: Check if there are changes to commit
+        id: changes
         run: |
-          FILE_PATH=$(find . -type f -name "file_tree.txt" | head -n 1)
-          echo "Found file_tree.txt at $FILE_PATH"
-          echo "file_path=$FILE_PATH" >> $GITHUB_ENV
+          git diff --exit-code || echo "Changes detected"
 
-      - name: Check for changes
-        id: check_changes
-        run: |
-          git diff --exit-code || echo "Changes detected"  
-          
       - name: Commit new txt file
-        if: steps.check_changes.outputs.diff == 'Changes detected'
+        if: steps.changes.outputs.changes == 'Changes detected'
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add ${{ env.file_path }}  
+          git add "Test Tree/file_tree.txt"
           git commit -m "Add updated file_tree.txt file"
           
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
