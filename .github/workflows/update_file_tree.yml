@@ -24,25 +24,16 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Find and run file_tree_maker.py
-        run: |
-          script_path=$(find . -type f -name "file_tree_maker.py" -print -quit)
-
-          if [ -n "$script_path" ]; then
-            echo "Found file_tree_maker.py at $script_path"
-            python "$script_path"
-          else
-            echo "file_tree_maker.py not found"
-            exit 1
-          fi
+      - name: Run Python script
+        run: python "Test Tree/file_tree_maker.py" 
 
       - name: Check if there are changes to commit
         id: changes
         run: |
-          git diff --exit-code || echo "Changes detected"
+          git diff --exit-code || echo "Changes detected" 
 
       - name: Commit new txt file
-        if: steps.changes.outputs.changes == 'Changes detected'
+        if: steps.changes.outputs.changes == 'Changes detected' 
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
