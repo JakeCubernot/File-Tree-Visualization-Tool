@@ -1,12 +1,12 @@
-Last updated: 2025-01-27 17:43:35
+Last updated: 2025-01-27 17:45:37
 
 Test Tree/
 ├── file_tree_maker.py
-├── Test Folder/
-│   ├── New Text Document (2).txt
-│   ├── New Text Document.txt
-│   ├── New Text Document - Copy.txt
-│   ├── New Text Document (3) - Copy.txt
-│   ├── New Text Document (2) - Copy.txt
-│   └── New Text Document - Copy (2).txt
-└── file_tree.txt
+├── file_tree.txt
+└── New Test Folder/
+    ├── New Text Document (2).txt
+    ├── New Text Document.txt
+    ├── New Text Document - Copy.txt
+    ├── New Text Document (3) - Copy.txt
+    ├── New Text Document (2) - Copy.txt
+    └── New Text Document - Copy (2).txt
