@@ -24,8 +24,22 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Find Python script
+        id: find_script
+        run: |
+          FILE_PATH=$(find . -type f -name "file_tree_maker.py" | head -n 1)
+          echo "Found file_tree_maker.py at $FILE_PATH"
+          echo "script_path=$FILE_PATH" >> $GITHUB_ENV
+
       - name: Run Python script
-        run: python "Test Tree/file_tree_maker.py" 
+        run: python ${{ env.script_path }}
+
+      - name: Find file_tree.txt
+        id: find_file
+        run: |
+          FILE_PATH=$(find . -type f -name "file_tree.txt" | head -n 1)
+          echo "Found file_tree.txt at $FILE_PATH"
+          echo "file_path=$FILE_PATH" >> $GITHUB_ENV
 
       - name: Check for changes
         id: check_changes
@@ -37,7 +51,7 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add "Test Tree/file_tree.txt"  
+          git add ${{ env.file_path }}  
           git commit -m "Add updated file_tree.txt file"
           
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
