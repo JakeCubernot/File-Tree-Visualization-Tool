@@ -24,48 +24,20 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Find and run the file_tree_maker.py script
-        run: |
-          file_path=$(find . -name "file_tree_maker.py" -print -quit)
-          if [ -z "$file_path" ]; then
-            echo "file_tree_maker.py not found!"
-            exit 1
-          else
-            echo "Found file_tree_maker.py at $file_path"
-            python "$file_path"
-          fi
+      - name: Run Python script
+        run: python "Test Tree/file_tree_maker.py" 
 
-      - name: Find the file_tree.txt file
-        id: find_file
+      - name: Check if there are changes to commit
+        id: changes
         run: |
-          file_tree_path=$(find . -name "file_tree.txt" -print -quit)
-          if [ -z "$file_tree_path" ]; then
-            echo "file_tree.txt not found!"
-            exit 1
-          else
-            echo "Found file_tree.txt at $file_tree_path"
-            echo "file_tree_path=$file_tree_path" >> $GITHUB_ENV
-          fi
+          git diff --exit-code || echo "Changes detected" 
 
-      - name: Debug file_tree_path
-        run: |
-          echo "Debug: file_tree_path=${{ env.file_tree_path }}"
-
-      - name: Check for untracked changes
-        run: |
-          git status -uall
-          git diff --exit-code || echo "Changes detected"
-
-      - name: Add file_tree.txt to git
-        run: |
-          echo "Adding file tree file..."
-          git add "${{ env.file_tree_path }}"
-
-      - name: Commit and push changes
-        if: steps.find_file.outputs.file_tree_path != ''
+      - name: Commit new txt file
+        if: steps.changes.outputs.changes == 'Changes detected' 
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
+          git add "Test Tree/file_tree.txt"
+          git commit -m "Add updated file_tree.txt file"
           
-          git commit -m "Add updated file_tree.txt file" || echo "No changes to commit"
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
