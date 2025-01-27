@@ -22,4 +22,22 @@ jobs:
           python-version: '3.x'
 
       - name: Run Python script
-        run: python "Test Tree/file_tree_maker.py" 
+        run: python "Test Tree/file_tree_maker.py"
+
+      - name: Configure Git for GitHub Actions
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Add changes to Git
+        run: |
+          git add "Test Tree/file_tree.txt"
+          git status  # This will show you if there are any changes staged
+
+      - name: Commit the changes
+        run: |
+          git diff --exit-code || git commit -m "Update file tree"
+
+      - name: Push changes
+        run: |
+          git push origin main
