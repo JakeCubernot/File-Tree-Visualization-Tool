@@ -1,12 +1,12 @@
 # File Tree Visualization Tool
 
-This Python tool generates a visual representation of the file structure in a directory and outputs it to a `.txt` file. It recursively traverses the directory tree and creates an indented structure to represent all files and folders.
+This Python tool generates a visual representation of the file structure in a directory and outputs it to a `.txt` file. It automatically updates the file tree using GitHub Actions, which runs the `.py` script and commits the updated file tree to the repository whenever changes are made to the repo.
 
 ## Features
 
-- Recursively lists all files and directories starting from the directory where the script is run.
 - Outputs the file tree as an indented visual structure to a `file_tree.txt` file.
 - Can be used for any directory to get a clear overview of its contents.
+- Automatically updates the file tree and commits the changes via GitHub Actions.
 
 ## Requirements
 
