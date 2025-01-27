@@ -22,4 +22,4 @@ jobs:
           python-version: '3.x'  
 
       - name: Run Python script
-        run: python file_tree_maker.py
+        run: python src/file_tree_maker.py
