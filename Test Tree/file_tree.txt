@@ -8,6 +8,8 @@ Test Tree/
 │       ├── Mr. Name.txt
 │       └── Retired Teachers/
 │           └── Mrs. Smith.txt
+├── East School/
+│   └── New School.txt
 ├── file_tree.txt
 └── North School/
     ├── Students/
