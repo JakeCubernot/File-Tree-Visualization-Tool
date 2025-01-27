@@ -37,7 +37,16 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add "Test Tree/file_tree.txt"  
-          git commit -m "Add updated file_tree.txt file"
           
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          FILE_PATH=$(find . -type f -name "file_tree.txt")
+          
+          if [ -n "$FILE_PATH" ]; then
+            git add "$FILE_PATH"
+            git commit -m "Add updated file_tree.txt file"
+            
+            git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
+          else
+            echo "file_tree.txt not found"
+            exit 1
+          fi
+
