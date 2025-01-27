@@ -35,6 +35,18 @@ jobs:
             python "$file_path"
           fi
 
+      - name: Find the file_tree.txt file
+        id: find_file
+        run: |
+          file_tree_path=$(find . -name "file_tree.txt" -print -quit)
+          if [ -z "$file_tree_path" ]; then
+            echo "file_tree.txt not found!"
+            exit 1
+          else
+            echo "Found file_tree.txt at $file_tree_path"
+            echo "::set-output name=file_tree_path::$file_tree_path"
+          fi
+
       - name: Check if there are changes to commit
         id: changes
         run: |
@@ -45,7 +57,8 @@ jobs:
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add "Test Tree/file_tree.txt"
+          
+          git add "${{ steps.find_file.outputs.file_tree_path }}"
           git commit -m "Add updated file_tree.txt file"
           
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
