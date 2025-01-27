@@ -47,6 +47,10 @@ jobs:
             echo "file_tree_path=$file_tree_path" >> $GITHUB_ENV
           fi
 
+      - name: Add untracked files to git
+        run: |
+          git add "${{ env.file_tree_path }}"
+
       - name: Check if there are changes to commit
         id: changes
         run: |
@@ -59,7 +63,5 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           
-          git add "${{ env.file_tree_path }}"
           git commit -m "Add updated file_tree.txt file"
-          
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
