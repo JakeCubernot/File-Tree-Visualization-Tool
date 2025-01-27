@@ -22,8 +22,16 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Run Python script
-        run: python "Test Tree/file_tree_maker.py" 
+      - name: Find and run Python script
+        run: |
+          SCRIPT_PATH=$(find . -type f -name "file_tree_maker.py")
+          if [ -n "$SCRIPT_PATH" ]; then
+            python "$SCRIPT_PATH"
+          else
+            echo "file_tree_maker.py not found"
+            exit 1
+          fi
+
 
       - name: Commit new txt file
         run: |
