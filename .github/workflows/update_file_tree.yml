@@ -32,7 +32,7 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           git add "Test Tree/file_tree.txt"  # Adjust this path to where your .txt file is saved
-          git commit -m "Add updated .txt file"
+          git commit -m "Add updated file_tree.txt file"
           
           # Push changes using the GITHUB_TOKEN
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
