@@ -44,12 +44,13 @@ jobs:
             exit 1
           else
             echo "Found file_tree.txt at $file_tree_path"
-            echo "::set-output name=file_tree_path::$file_tree_path"
+            echo "file_tree_path=$file_tree_path" >> $GITHUB_ENV
           fi
 
       - name: Check if there are changes to commit
         id: changes
         run: |
+          git status
           git diff --exit-code || echo "Changes detected"
 
       - name: Commit new txt file
@@ -58,7 +59,7 @@ jobs:
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
           
-          git add "${{ steps.find_file.outputs.file_tree_path }}"
+          git add "${{ env.file_tree_path }}"
           git commit -m "Add updated file_tree.txt file"
           
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
