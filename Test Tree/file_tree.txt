@@ -1,22 +1,3 @@
 Test Tree/
 ├── file_tree_maker.py
-├── South School/
-│   ├── Students/
-│   │   ├── New Text Document.txt
-│   │   └── Sam.txt
-│   └── Teachers/
-│       ├── Mr. Name.txt
-│       └── Retired Teachers/
-│           └── Mrs. Smith.txt
-├── East School/
-│   └── New School.txt
-├── file_tree.txt
-└── North School/
-    ├── Students/
-    │   ├── Classroom A-1/
-    │   │   ├── John.txt
-    │   │   └── Bob.docx
-    │   └── Classroom B-4/
-    │       └── John.txt
-    └── Teachers/
-        └── Mr. Smith.txt
+└── file_tree.txt
