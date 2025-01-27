@@ -1,3 +1,5 @@
+name: Update File Tree
+
 on:
   push:
     branches:
@@ -25,7 +27,13 @@ jobs:
       - name: Run Python script
         run: python "Test Tree/file_tree_maker.py" 
 
+      - name: Check for changes
+        id: check_changes
+        run: |
+          git diff --exit-code || echo "Changes detected"  
+          
       - name: Commit new txt file
+        if: steps.check_changes.outputs.diff == 'Changes detected'
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
