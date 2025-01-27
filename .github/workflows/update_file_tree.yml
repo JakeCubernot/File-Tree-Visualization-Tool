@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write  
+      contents: write
 
     steps:
       - name: Checkout code
@@ -24,15 +24,28 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: Run Python script
-        run: python "Test Tree/file_tree_maker.py" 
+      - name: Find and run the file_tree_maker.py script
+        run: |
+          file_path=$(find . -name "file_tree_maker.py" -print -quit)
+          if [ -z "$file_path" ]; then
+            echo "file_tree_maker.py not found!"
+            exit 1
+          else
+            echo "Found file_tree_maker.py at $file_path"
+            python "$file_path"
+          fi
+
+      - name: Check if there are changes to commit
+        id: changes
+        run: |
+          git diff --exit-code || echo "Changes detected"
 
       - name: Commit new txt file
+        if: steps.changes.outputs.changes == 'Changes detected'
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add "Test Tree/file_tree.txt"  # Adjust this path to where your .txt file is saved
+          git add "Test Tree/file_tree.txt"
           git commit -m "Add updated file_tree.txt file"
           
-          # Push changes using the GITHUB_TOKEN
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git

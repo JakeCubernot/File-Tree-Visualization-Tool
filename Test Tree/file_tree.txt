@@ -1,6 +1,7 @@
 Last updated: 2025-01-27 11:26:50
 
 Test Tree/
+<<<<<<< HEAD
 ├── file_tree.txt
 ├── file_tree_maker.py
 └── Test Folder/
@@ -8,3 +9,7 @@ Test Tree/
     │   └── Work File.txt
     └── Folder 2/
         └── Test File.txt
+=======
+├── file_tree_maker.py
+└── file_tree.txt
+>>>>>>> origin/main
