@@ -1,5 +1,3 @@
-name: Update File Tree
-
 on:
   push:
     branches:
@@ -13,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     permissions:
-      contents: write
+      contents: write  
 
     steps:
       - name: Checkout code
@@ -27,17 +25,11 @@ jobs:
       - name: Run Python script
         run: python "Test Tree/file_tree_maker.py" 
 
-      - name: Check if there are changes to commit
-        id: changes
-        run: |
-          git diff --exit-code || echo "Changes detected" 
-
       - name: Commit new txt file
-        if: steps.changes.outputs.changes == 'Changes detected' 
         run: |
           git config --global user.name 'github-actions'
           git config --global user.email 'github-actions@github.com'
-          git add "Test Tree/file_tree.txt"
+          git add "Test Tree/file_tree.txt"  
           git commit -m "Add updated file_tree.txt file"
           
           git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
