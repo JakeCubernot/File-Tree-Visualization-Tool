@@ -98,11 +98,13 @@ By default, the tool will generate a file_tree.txt file in the current directory
 
 The generated file_tree.txt file provides a hierarchical view of your directory structure. Example:
    
-   ```css
-   Project/
-   ├── file_tree_maker.py
-   ├── README.md
-   ├── requirements.txt
-   └── src/
-       ├── module1.py
-       └── module2.py
+      Project/
+      ├── file_tree_maker.py
+      ├── README.md
+      ├── requirements.txt
+      └── src/
+          ├── module1.py
+          └── module2.py
+
+# License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
