@@ -25,13 +25,7 @@ This Python tool generates a visual representation of the file structure in a di
    ```bash
    cd File-Tree-Visualization-Tool
 
-3. (Optional) Create and activate a virtual environment.
-
-   ```bash
-   python -m venv env
-   source env/bin/activate  # On Windows, use: env\Scripts\activate
-
-4. Set up GitHub Actions for automation:
+3. Set up GitHub Actions for automation:
 
 - Ensure the `.github/workflows/update_file_tree.yml` file is present in the repository. This file defines the automation process for running the Python script and committing updates to the `file_tree.txt`.
 -  If it doesn't exist, create a `update_file_tree.yml` file in the `.github/workflows/` directory with the following content:
@@ -73,14 +67,14 @@ This Python tool generates a visual representation of the file structure in a di
              git commit -m "Update file_tree.txt"
              git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
 
-5. Push your changes to the repository to enable GitHub Actions:
+4. Push your changes to the repository to enable GitHub Actions:
 
    ```bash
    git add .
    git commit -m "Set up File Tree Visualization Tool"
    git push origin main
 
-6. Verify the workflow:
+5. Verify the workflow:
 
 - Go to the "Actions" tab in your GitHub repository to see the workflow running.
 - After the first successful run, you should see the `file_tree.txt` file updated in your repository.
