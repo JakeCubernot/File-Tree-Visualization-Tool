@@ -101,4 +101,4 @@ The generated file_tree.txt file provides a hierarchical view of your directory 
           └── module2.py
 
 # License
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under `The Unlicense` License. See the [LICENSE](LICENSE) file for details.
